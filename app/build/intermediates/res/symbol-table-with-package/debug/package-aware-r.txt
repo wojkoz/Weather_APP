@@ -644,6 +644,8 @@ drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+drawable weather_icon
+drawable weather_icon2
 id ALT
 id CTRL
 id FUNCTION
@@ -721,6 +723,7 @@ id icon_group
 id ifRoom
 id image
 id imageView
+id imageView3
 id info
 id invisible
 id italic
