@@ -55,27 +55,28 @@ public class WeatherActivity extends AppCompatActivity {
         call.enqueue(new Callback<Weather>() {
             @Override
             public void onResponse(Call<Weather> call, Response<Weather> response) {
-                if(response.isSuccessful()) {
-                    Weather weather = response.body();
-
-                    temp.setText(weather.getTemp());
-                    preassure.setText(weather.getPressure());
-                    humidity.setText(weather.getHumidity());
-                    temp_min.setText(weather.getTemp_min());
-                    temp_max.setText(weather.getTemp_max());
-
-                    SharedPreferences sharedPref = getSharedPreferences("City",Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString(sharedKey, city_name.getText().toString());
-                    editor.apply();
-
+                if(!response.isSuccessful()) {
+                    if(response.code() == 404){
+                        finish();
+                        return;
+                    }
+                    time.setText(response.code());
                     return;
                 }
-                if(response.code() == 404){
-                    finish();
-                    return;
-                }
-                time.setText(response.code());
+
+                Weather weather = response.body();
+
+                temp.setText(weather.getTemp());
+                preassure.setText(weather.getPressure());
+                humidity.setText(weather.getHumidity());
+                temp_min.setText(weather.getTemp_min());
+                temp_max.setText(weather.getTemp_max());
+
+                SharedPreferences sharedPref = getSharedPreferences("City",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(sharedKey, city_name.getText().toString());
+                editor.apply();
+
 
             }
 
