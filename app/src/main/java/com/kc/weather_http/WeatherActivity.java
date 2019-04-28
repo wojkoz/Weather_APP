@@ -16,10 +16,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.internal.EverythingIsNonNull;
 
 public class WeatherActivity extends AppCompatActivity {
-    private TextView time, temp, preassure, humidity, temp_min, temp_max, city_name;
+    private TextView time, temp, pressure, humidity, temp_min, temp_max, city_name;
     public static final String sharedKey = "KEY";
+    public static final String sharedKeyCityName = "City";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class WeatherActivity extends AppCompatActivity {
         time = findViewById(R.id.time);
         time.setText(String.valueOf(LocalTime.now(ZoneId.of("Europe/Warsaw")).withNano(0)));
         temp = findViewById(R.id.temp_c);
-        preassure = findViewById(R.id.preassure_c);
+        pressure = findViewById(R.id.pressure_c);
         humidity = findViewById(R.id.humidity_c);
         temp_min = findViewById(R.id.temp_min_c);
         temp_max = findViewById(R.id.temp_max_c);
@@ -52,9 +54,11 @@ public class WeatherActivity extends AppCompatActivity {
 
         final String appid = "749561a315b14523a8f5f1ef95e45864";
         Call<Weather> call = json.getWeather(q,appid, "metric");
+
         call.enqueue(new Callback<Weather>() {
             @Override
-            public void onResponse(Call<Weather> call, Response<Weather> response) {
+            @EverythingIsNonNull
+            public void onResponse( Call<Weather> call, Response<Weather> response) {
                 if(!response.isSuccessful()) {
                     if(response.code() == 404){
                         finish();
@@ -66,13 +70,32 @@ public class WeatherActivity extends AppCompatActivity {
 
                 Weather weather = response.body();
 
-                temp.setText(weather.getTemp());
-                preassure.setText(weather.getPressure());
-                humidity.setText(weather.getHumidity());
-                temp_min.setText(weather.getTemp_min());
-                temp_max.setText(weather.getTemp_max());
+                if (weather != null) {
+                    temp.setText(weather.getTemp());
+                }else
+                    temp.setText(R.string._null);
 
-                SharedPreferences sharedPref = getSharedPreferences("City",Context.MODE_PRIVATE);
+                if (weather != null) {
+                    pressure.setText(weather.getPressure());
+                }else
+                    pressure.setText(R.string._null);
+
+                if (weather != null) {
+                    humidity.setText(weather.getHumidity());
+                }else
+                    humidity.setText(R.string._null);
+
+                if (weather != null) {
+                    temp_min.setText(weather.getTemp_min());
+                }else
+                    temp_min.setText(R.string._null);
+
+                if (weather != null) {
+                    temp_max.setText(weather.getTemp_max());
+                }else
+                    temp_max.setText(R.string._null);
+
+                SharedPreferences sharedPref = getSharedPreferences(sharedKeyCityName,Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(sharedKey, city_name.getText().toString());
                 editor.apply();
@@ -81,6 +104,7 @@ public class WeatherActivity extends AppCompatActivity {
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<Weather> call, Throwable throwable) {
                 time.setText(throwable.getMessage());
             }

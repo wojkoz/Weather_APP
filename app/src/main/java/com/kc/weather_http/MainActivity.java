@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPref = getSharedPreferences("City",Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(WeatherActivity.sharedKeyCityName,Context.MODE_PRIVATE);
 
         String city_def = sharedPref.getString(WeatherActivity.sharedKey, " ");
         EditText a = findViewById(R.id.city_input);

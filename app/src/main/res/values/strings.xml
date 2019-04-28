@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Weather_HTTP</string>
+    <string name="temp">Temp</string>
+    <string name="_3c">3C</string>
+    <string name="pressure">Pressure</string>
+    <string name="_1000_hpa">1000 hPa</string>
+    <string name="humidity">Humidity</string>
+    <string name="_60">60%</string>
+    <string name="temp_min">Temp min</string>
+    <string name="_3_c">3 C</string>
+    <string name="temp_max">Temp max</string>
+    <string name="_6_c">6 C</string>
+    <string name="time">time</string>
+    <string name="city_name">City_name</string>
+    <string name="clouds">Clouds</string>
+    <string name="city">City</string>
+    <string name="check_the_weather">Check the Weather</string>
+    <string name="weather_sun">weather_sun</string>
+    <string name="_null">Null</string>
 </resources>
