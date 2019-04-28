@@ -1,6 +1,7 @@
 package com.kc.weather_http;
 
-public class WeatherJsonObject {
+
+public class Weather_main {
     private Double temp;
     private Integer pressure;
     private Integer humidity;

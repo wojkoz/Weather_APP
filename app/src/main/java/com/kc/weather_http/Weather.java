@@ -3,29 +3,25 @@ package com.kc.weather_http;
 import com.google.gson.annotations.SerializedName;
 
 public class Weather {
-    private int cod;
     @SerializedName("main")
-    private WeatherJsonObject weatherJsonObject;
+    private Weather_main weatherMain;
 
-    public int getCod() {
-        return cod;
-    }
     public String getTemp(){
-        return weatherJsonObject.getTemp().toString() + " C";
+        return weatherMain.getTemp().toString() + " C";
     }
     public String getPressure() {
-        return weatherJsonObject.getPressure().toString() + "hPa";
+        return weatherMain.getPressure().toString() + "hPa";
     }
 
     public String getHumidity() {
-        return weatherJsonObject.getHumidity().toString() + " %";
+        return weatherMain.getHumidity().toString() + " %";
     }
 
     public String getTemp_min() {
-        return weatherJsonObject.getTemp_min().toString() + " C";
+        return weatherMain.getTemp_min().toString() + " C";
     }
 
     public String getTemp_max() {
-        return weatherJsonObject.getTemp_max().toString() + " C";
+        return weatherMain.getTemp_max().toString() + " C";
     }
 }
