@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     static final String key = "kk";
@@ -28,8 +29,12 @@ public class MainActivity extends AppCompatActivity {
         if(isNetworkAvailable()) {
             check_weather.setEnabled(true);
         }
-        else
+        else{
             check_weather.setEnabled(false);
+            Toast.makeText(this, "No Internet access!",
+                    Toast.LENGTH_LONG).show();
+        }
+
     }
 
     public void showCityWeather(View view) {
@@ -39,8 +44,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

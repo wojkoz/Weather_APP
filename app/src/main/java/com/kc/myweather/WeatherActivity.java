@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.StrictMode;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -59,7 +61,10 @@ public class WeatherActivity extends AppCompatActivity {
         Timer timer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
-                getWeatherStatus(city + ",pl");
+                if(isNetworkAvailable()){
+                    getWeatherStatus(city + ",pl");
+                }
+
             }
         };
         timer.schedule(task, 0, 5000);
@@ -68,8 +73,12 @@ public class WeatherActivity extends AppCompatActivity {
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getWeatherStatus(city+",pl"); // your code
+                if(isNetworkAvailable()){
+                    getWeatherStatus(city+",pl");
+
+                }
                 pullToRefresh.setRefreshing(false);
+
             }
         });
 
@@ -159,4 +168,11 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
     }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }
+
