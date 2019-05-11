@@ -37,6 +37,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Button check_weather = findViewById(R.id.check_weather);
+        if(isNetworkAvailable()) {
+            check_weather.setEnabled(true);
+        }
+        else{
+            check_weather.setEnabled(false);
+            Toast.makeText(this, "No Internet access!",
+                    Toast.LENGTH_LONG).show();
+        }
+
+    }
+
     public void showCityWeather(View view) {
         EditText a = findViewById(R.id.city_input);
         Intent intent = new Intent(this, WeatherActivity.class);
