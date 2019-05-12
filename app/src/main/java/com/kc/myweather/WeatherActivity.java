@@ -111,27 +111,27 @@ public class WeatherActivity extends AppCompatActivity {
 
                 WeatherJson weatherJson = response.body();
 
-                if (weatherJson != null) {
+                if (weatherJson.getTemp() != null) {
                     temp.setText(weatherJson.getTemp());
                 }else
                     temp.setText(R.string._null);
 
-                if (weatherJson != null) {
+                if (weatherJson.getPressure() != null) {
                     pressure.setText(weatherJson.getPressure());
                 }else
                     pressure.setText(R.string._null);
 
-                if (weatherJson != null) {
+                if (weatherJson.getHumidity() != null) {
                     humidity.setText(weatherJson.getHumidity());
                 }else
                     humidity.setText(R.string._null);
 
-                if (weatherJson != null) {
+                if (weatherJson.getTemp_min() != null) {
                     temp_min.setText(weatherJson.getTemp_min());
                 }else
                     temp_min.setText(R.string._null);
 
-                if (weatherJson != null) {
+                if (weatherJson.getTemp_max() != null) {
                     temp_max.setText(weatherJson.getTemp_max());
                 }else
                     temp_max.setText(R.string._null);
